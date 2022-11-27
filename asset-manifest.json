@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/aizen-react/static/css/main.46cb2314.css",
-    "main.js": "/aizen-react/static/js/main.2a5434a9.js",
+    "main.js": "/aizen-react/static/js/main.95ca023d.js",
     "static/js/787.6486f91a.chunk.js": "/aizen-react/static/js/787.6486f91a.chunk.js",
     "index.html": "/aizen-react/index.html",
     "main.46cb2314.css.map": "/aizen-react/static/css/main.46cb2314.css.map",
-    "main.2a5434a9.js.map": "/aizen-react/static/js/main.2a5434a9.js.map",
+    "main.95ca023d.js.map": "/aizen-react/static/js/main.95ca023d.js.map",
     "787.6486f91a.chunk.js.map": "/aizen-react/static/js/787.6486f91a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.46cb2314.css",
-    "static/js/main.2a5434a9.js"
+    "static/js/main.95ca023d.js"
   ]
 }
