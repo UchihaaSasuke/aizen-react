@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 
 import "./App.css";
-import pokemon from "./pokemon.json";
 
 const PokemonRow = ({ pokemon, onSelect }) => (
   <tr>
@@ -56,7 +55,16 @@ PokemonInfo.propTypes = {
 
 function App() {
   const [filter, setFilter] = React.useState("");
+  const [pokemon, setPokemon] = React.useState([]);
   const [selectedItem, setSelectedItem] = React.useState(null);
+
+  console.log("window.location.origin: ", window.location.origin);
+  React.useEffect(() => {
+    fetch(window.location.origin + "/aizen-react/pokemon.json")
+      .then((res) => res.json())
+      .then((data) => setPokemon(data));
+  }, []);
+
   return (
     <div
       style={{
