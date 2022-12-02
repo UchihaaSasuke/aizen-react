@@ -80,61 +80,91 @@ const Input = styled.input`
   padding: 0.2rem;
 `;
 
-function App() {
-  const [filter, setFilter] = React.useState("");
-  const [pokemon, setPokemon] = React.useState([]);
-  const [selectedItem, setSelectedItem] = React.useState(null);
+class App extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      filter: "",
+      pokemon: [],
+      selectedItem: null,
+    };
+  }
 
-  console.log("window.location.origin: ", window.location.origin);
-  React.useEffect(() => {
+  componentDidMount() {
     fetch(window.location.origin + "/aizen-react/pokemon.json")
       .then((res) => res.json())
-      .then((data) => setPokemon(data));
-  }, []);
+      .then((pokemon) =>
+        this.setState({
+          ...this.state,
+          pokemon,
+        })
+      );
+  }
 
-  return (
-    <Container>
-      <Title>Pokemon Search</Title>
-      <TwoColumnLayout>
-        {/* div 70% */}
-        <div>
-          <Input
-            value={filter}
-            onChange={(evt) => {
-              setFilter(evt.target.value);
-            }}
-          />
-          <table width="100%">
-            <thead>
-              <tr>
-                <th>Bulbasaur</th>
-                <th>Grass, Poison</th>
-              </tr>
-            </thead>
-            <tbody>
-              {pokemon
-                .filter((pokemon) =>
-                  pokemon.name.english
-                    .toLowerCase()
-                    .includes(filter.toLowerCase())
-                )
-                .slice(0, 20)
-                .map((pokemon) => (
-                  <PokemonRow
-                    key={pokemon.id}
-                    pokemon={pokemon}
-                    onSelect={(pokemon) => setSelectedItem(pokemon)}
-                  />
-                ))}
-            </tbody>
-          </table>
-        </div>
+  render() {
+    return (
+      <Container>
+        <Title>Pokemon Search</Title>
+        <TwoColumnLayout>
+          {/* div 70% */}
+          <div>
+            <Input
+              value={this.state.filter}
+              onChange={(evt) => {
+                this.setState({
+                  ...this.state,
+                  filter: evt.target.value,
+                });
+              }}
+            />
+            <table width="100%">
+              <thead>
+                <tr>
+                  <th>Bulbasaur</th>
+                  <th>Grass, Poison</th>
+                </tr>
+              </thead>
+              <tbody>
+                {this.state.pokemon
+                  .filter((pokemon) =>
+                    pokemon.name.english
+                      .toLowerCase()
+                      .includes(this.state.filter.toLowerCase())
+                  )
+                  .slice(0, 20)
+                  .map((pokemon) => (
+                    <PokemonRow
+                      key={pokemon.id}
+                      pokemon={pokemon}
+                      onSelect={(pokemon) =>
+                        this.setState({
+                          ...this.state,
+                          selectedItem: pokemon,
+                        })
+                      }
+                    />
+                  ))}
+              </tbody>
+            </table>
+          </div>
 
-        {/* div 30% */}
-        {selectedItem && <PokemonInfo {...selectedItem} />}
-      </TwoColumnLayout>
-    </Container>
-  );
+          {/* div 30% */}
+          {this.state.selectedItem && (
+            <PokemonInfo {...this.state.selectedItem} />
+          )}
+        </TwoColumnLayout>
+      </Container>
+    );
+  }
 }
+
+// function App() {
+
+//   console.log("window.location.origin: ", window.location.origin);
+//   React.useEffect(() => {
+//
+//   }, []);
+
+// }
 
 export default App;
